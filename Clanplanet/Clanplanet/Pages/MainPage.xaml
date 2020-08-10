@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Clanplanet.Pages"
+             x:Class="Clanplanet.Pages.MainPage"
+             Title="Clanplanet-Eventplaner">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:CurrentDayColorConverter x:Key="cdayCnvrt"></local:CurrentDayColorConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Padding="{Binding SLPadding, Source={x:Static local:GlobalErrorValues.Current}}" BackgroundColor="{Binding SLBGColor, Source={x:Static local:GlobalErrorValues.Current}}" Spacing="0">
+        <Button IsVisible="{Binding IsCollectingReportData, Source={x:Static local:GlobalErrorValues.Current}}" Text="Aufnahme beenden..." Clicked="Button_Clicked"/>
+        <ListView x:Name="ListViewClanEvents"
+              HasUnevenRows="true"
+              IsPullToRefreshEnabled="True"
+                  BackgroundColor="White"
+              RefreshCommand="{Binding PullRefreshCommand}"
+              ItemsSource="{Binding ClanEvents}" 
+              IsGroupingEnabled="True"
+              VerticalOptions="FillAndExpand">
+            <ListView.Header>
+                <Grid BackgroundColor="#03A9F4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="1"
+                      Grid.Row="1"
+                      Text="{Binding HeaderTitle}"
+                      Style="{DynamicResource SubtitleStyle}"
+                       VerticalOptions="End"
+                       Margin="0, 0, 0, 10" />
+                    <Picker Grid.Column="2"
+                        Grid.Row="1" x:Name="DatePicker" 
+                        SelectedIndex="{Binding ShowEvents}" 
+                        HorizontalOptions="FillAndExpand"
+                        ItemsSource="{Binding PickerItems}"
+                        Title="Monatsauswahl"
+                        VerticalOptions="End"/>
+                </Grid>
+            </ListView.Header>
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell Height="50">
+                        <ViewCell.Height>
+                            <OnPlatform x:TypeArguments="x:Double">
+                                <OnPlatform.iOS>
+                                    30
+                                </OnPlatform.iOS>
+                                <OnPlatform.Android>
+                                    30
+                                </OnPlatform.Android>
+                                <OnPlatform.WinPhone>
+                                    50
+                                </OnPlatform.WinPhone>
+                            </OnPlatform>
+                        </ViewCell.Height>
+                        <StackLayout BackgroundColor="{Binding HeaderColor}" VerticalOptions="FillAndExpand">
+                            <Label Text="{Binding Heading}" VerticalTextAlignment="Center" VerticalOptions="FillAndExpand" FontSize="18" Margin="6" FontAttributes="{Binding CurrentDayAttribute}"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell Height="60">
+                        <ViewCell.ContextActions>
+                            <MenuItem Clicked="OnZusage" CommandParameter="{Binding .}"
+                            Text="Anmeldung" />
+                            <MenuItem Clicked="OnAbsage" CommandParameter="{Binding .}"
+                            Text="Abwesend" IsDestructive="True" />
+                        </ViewCell.ContextActions>
+                        <Grid Padding="6, 2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="16"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <StackLayout Orientation="Vertical"
+                               Grid.Column="0"
+                               Grid.Row="0"
+                                     Spacing="2">
+                                <!--<Label VerticalOptions="Start" 
+                               VerticalTextAlignment="Start"
+                               Text="{Binding DateOnlyString}" 
+                               FontSize="20"
+                                   TextColor="{Binding Day, Converter={StaticResource cdayCnvrt}}"/>-->
+                                <Label VerticalOptions="Start" 
+                               VerticalTextAlignment="Start"
+                               Text="{Binding TimeString}" 
+                               FontSize="20"
+                                   TextColor="DarkGray"/>
+                            </StackLayout>
+                            <Image Source="degen_mini.png" 
+                               HeightRequest="16" 
+                               IsVisible="{Binding ClanWar}"
+                               VerticalOptions="Center"
+                               Grid.Column="1"
+                               Grid.Row="0"/>
+                            <Label VerticalOptions="FillAndExpand" 
+                               VerticalTextAlignment="Center" 
+                               Text="{Binding EventName}" 
+                               FontSize="16"
+                               Grid.Column="2"
+                               Grid.Row="0"/>
+                            <StackLayout Orientation="Vertical" Grid.Column="3" Grid.Row="0">
+                                <Image Source="{Binding StatusImage}"
+                               IsVisible="{Binding MeldungAllowed}"
+                               VerticalOptions="Center"
+                               HeightRequest="32"/>
+                                <Label VerticalOptions="FillAndExpand" 
+                               VerticalTextAlignment="Center" 
+                                       HorizontalOptions="FillAndExpand"
+                                       HorizontalTextAlignment="Center"
+                               Text="{Binding MeldungenCount}" 
+                               FontSize="14"/>
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

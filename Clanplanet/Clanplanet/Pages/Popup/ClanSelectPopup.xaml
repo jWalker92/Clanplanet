@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Clanplanet.Pages.Popup.ClanSelectPopup">
+    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Padding="20">
+        <ListView x:Name="ClansListe"
+                  IsVisible="{Binding ClansAvailable}"
+              HasUnevenRows="true" BackgroundColor="White"
+              ItemsSource="{Binding Clans}" 
+              VerticalOptions="FillAndExpand">
+            <ListView.Header>
+                <Grid BackgroundColor="#03A9F4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+                    <Label
+              Grid.Column="1"
+              Grid.Row="1"
+              Text="Deine Clans"
+              Style="{DynamicResource SubtitleStyle}"/>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="12,8" HorizontalOptions="FillAndExpand">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label VerticalOptions="FillAndExpand" 
+                                VerticalTextAlignment="Start" 
+                                Text="{Binding Name}" 
+                                FontSize="18"
+                                   FontAttributes="Bold"
+                               Grid.Row="0"/>
+                            <StackLayout Orientation="Horizontal" Spacing="3" Grid.Row="1" IsVisible="{Binding ShowClanSub}">
+                                <Label VerticalOptions="FillAndExpand" 
+                                VerticalTextAlignment="Start" 
+                                Text="{Binding Rang}" 
+                                FontSize="14"/>
+                                <Label VerticalOptions="FillAndExpand" 
+                                VerticalTextAlignment="Start" 
+                                Text="seit" 
+                                FontSize="14"/>
+                                <Label VerticalOptions="FillAndExpand" 
+                                VerticalTextAlignment="Start" 
+                                Text="{Binding MemberSince}" 
+                                FontSize="14"/>
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</pages:PopupPage>

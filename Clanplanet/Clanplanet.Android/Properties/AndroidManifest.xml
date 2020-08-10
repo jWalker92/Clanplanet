@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="de.walkerdroid.planner" android:installLocation="auto" android:versionName="1.7" android:versionCode="17">
+	<uses-sdk android:minSdkVersion="15" android:targetSdkVersion="28" />
+	<uses-permission android:name="android.permission.WRITE_CALENDAR" />
+	<application android:icon="@drawable/icon" android:label="Clanplanet Eventplaner"></application>
+</manifest>

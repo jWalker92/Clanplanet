@@ -1,0 +1,22 @@
+﻿using Clanplanet.Pages;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Clanplanet.GUI
+{
+
+    public class ClanMainPageMenuItem
+    {
+        public ClanMainPageMenuItem()
+        {
+            TargetType = typeof(ClanMainPageDetail);
+        }
+        public int Id { get; set; }
+        public string Title { get; set; }
+
+        public Type TargetType { get; set; }
+    }
+}

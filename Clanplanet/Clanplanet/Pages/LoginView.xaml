@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Clanplanet.Pages"
+             x:Class="Clanplanet.Pages.LoginView"
+             Title="Anmelden">
+    <StackLayout Padding="{Binding SLPadding, Source={x:Static local:GlobalErrorValues.Current}}" BackgroundColor="{Binding SLBGColor, Source={x:Static local:GlobalErrorValues.Current}}" Spacing="0">
+        <Button IsVisible="{Binding IsCollectingReportData, Source={x:Static local:GlobalErrorValues.Current}}" Text="Aufnahme beenden..." Clicked="Button_Clicked_1"/>
+        <StackLayout Orientation="Vertical" Padding="8" BackgroundColor="White"
+              VerticalOptions="FillAndExpand">
+        <Entry Placeholder="Username / Clanplanet ID" Text="{Binding Login.Username}"/>
+            <Entry Placeholder="Passwort" Text="{Binding Login.Password}" IsPassword="true"/>
+            <StackLayout Orientation="Horizontal">
+                <Switch Toggled="Switch_Toggled" IsToggled="{Binding Login.AddReminderEnabled}"/>
+                <Label Text="Termin-Erinnerungen"/>
+            </StackLayout>
+            <Button Text="Login" Clicked="Button_Clicked"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

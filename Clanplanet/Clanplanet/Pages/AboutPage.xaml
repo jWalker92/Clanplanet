@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Clanplanet.Pages"
+             x:Class="Clanplanet.Pages.AboutPage">
+    <StackLayout Padding="{Binding SLPadding, Source={x:Static local:GlobalErrorValues.Current}}" BackgroundColor="{Binding SLBGColor, Source={x:Static local:GlobalErrorValues.Current}}" Spacing="0">
+        <Button IsVisible="{Binding IsCollectingReportData, Source={x:Static local:GlobalErrorValues.Current}}" Text="Aufnahme beenden..." Clicked="Button_Clicked"/>
+        <StackLayout Padding="12" BackgroundColor="White"
+              VerticalOptions="FillAndExpand">
+        <Label Text="{Binding DonateText}" FontSize="16"/>
+        <Image x:Name="DonatePic" Source="donateButton.gif" HorizontalOptions="Center"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

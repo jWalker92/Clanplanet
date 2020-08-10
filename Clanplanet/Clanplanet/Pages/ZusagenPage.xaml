@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Clanplanet.Pages"
+             x:Class="Clanplanet.Pages.ZusagenPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:MeldestatusColorConverter x:Key="statusCnvrt"></local:MeldestatusColorConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Padding="{Binding SLPadding, Source={x:Static local:GlobalErrorValues.Current}}" BackgroundColor="{Binding SLBGColor, Source={x:Static local:GlobalErrorValues.Current}}" Spacing="0">
+        <Button IsVisible="{Binding IsCollectingReportData, Source={x:Static local:GlobalErrorValues.Current}}" Text="Aufnahme beenden..." Clicked="Button_Clicked"/>
+    <ListView x:Name="ListViewClanEvents"
+              HasUnevenRows="true" BackgroundColor="White"
+              ItemsSource="{Binding Meldungen}" 
+              VerticalOptions="FillAndExpand">
+        <ListView.Header>
+            <Grid BackgroundColor="#03A9F4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <Label
+              Grid.Column="1"
+              Grid.Row="1"
+              Text="Meldungen"
+              Style="{DynamicResource SubtitleStyle}"/>
+            </Grid>
+        </ListView.Header>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <Grid Padding="12,8" HorizontalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="45"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label VerticalOptions="FillAndExpand" 
+                                VerticalTextAlignment="Start" 
+                                Text="{Binding MeldeTagDisplay}" 
+                                FontSize="14"
+                               Grid.Column="0"/>
+                        <Label VerticalOptions="FillAndExpand" 
+                                VerticalTextAlignment="Start" 
+                                Text="{Binding User}" 
+                                FontSize="14"
+                               Grid.Column="1"/>
+                        <Label VerticalOptions="FillAndExpand" 
+                                VerticalTextAlignment="Start" 
+                                Text="{Binding Bemerkung}" 
+                                FontSize="14"
+                               Grid.Column="2"
+                               TextColor="DimGray"/>
+                        <Label VerticalOptions="FillAndExpand" 
+                                VerticalTextAlignment="Start" 
+                                Text="{Binding MeldungDisplay}" 
+                                TextColor="{Binding Status, Converter={StaticResource statusCnvrt}}"
+                                FontSize="14"
+                               Grid.Column="3"/>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

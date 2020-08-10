@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Clanplanet.Pages"
+             x:Class="Clanplanet.Pages.EditEvent"
+             Title="Event eintragen">
+    <StackLayout Padding="{Binding SLPadding, Source={x:Static local:GlobalErrorValues.Current}}" BackgroundColor="{Binding SLBGColor, Source={x:Static local:GlobalErrorValues.Current}}" Spacing="0">
+        <Button IsVisible="{Binding IsCollectingReportData, Source={x:Static local:GlobalErrorValues.Current}}" Text="Aufnahme beenden..." Clicked="Button_Clicked"/>
+        <ScrollView  BackgroundColor="White"
+              VerticalOptions="FillAndExpand">
+        <StackLayout Padding="6">
+            <Entry x:Name="EntryEvent" Placeholder="Event" Text="{Binding EventName}" IsEnabled="{Binding FinishedLoading}"/>
+            <DatePicker Date="{Binding SelectedDate}" IsEnabled="{Binding FinishedLoading}" MinimumDate="{Binding MinDate}"/>
+            <TimePicker Time="{Binding SelectedTime}" IsEnabled="{Binding FinishedLoading}"/>
+            <StackLayout Orientation="Horizontal">
+                <Switch IsToggled="{Binding ClanWar}" IsEnabled="{Binding FinishedLoading}"/>
+                <Label Text="ClanWar"/>
+            </StackLayout>
+            <StackLayout Padding="0" IsVisible="{Binding ClanWar}">
+                <Picker Title="CP-Gegner" ItemsSource="{Binding Infos.Enemies}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCpEnemy}" IsEnabled="{Binding FinishedLoading}"/>
+                <Entry Placeholder="Clanname" Text="{Binding ClanWarDetails.GegnerName}" IsEnabled="{Binding Manual}"/>
+                <Entry Placeholder="Clankürzel" Text="{Binding ClanWarDetails.Kürzel}" IsEnabled="{Binding Manual}" />
+                <Entry Placeholder="Webseite" Text="{Binding ClanWarDetails.GegnerLink}" IsEnabled="{Binding Manual}" />
+                <Entry Placeholder="Kontaktperson" Text="{Binding ClanWarDetails.Kontakt}" IsEnabled="{Binding FinishedLoading}" />
+                <Entry Placeholder="Weitere Details" Text="{Binding ClanWarDetails.Details}" IsEnabled="{Binding FinishedLoading}"/>
+                <Entry Placeholder="Austragungsort" Text="{Binding ClanWarDetails.Ort}" IsEnabled="{Binding FinishedLoading}"/>
+                <Entry Placeholder="Zuschauerort" Text="{Binding ClanWarDetails.ZuschauerOrt}" IsEnabled="{Binding FinishedLoading}"/>
+                <Picker Title="Spiel" ItemsSource="{Binding Infos.Games}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCpGame}" IsEnabled="{Binding FinishedLoading}"/>
+                <Picker Title="Squad" ItemsSource="{Binding Infos.Squads}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCpSquad}" IsEnabled="{Binding FinishedLoading}"/>
+            </StackLayout>
+            <Picker Title="Gruppe" ItemsSource="{Binding Infos.Gruppen}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedGroup}" IsEnabled="{Binding FinishedLoading}"/>
+            <StackLayout Orientation="Horizontal">
+                <Switch IsToggled="{Binding Intern}" IsEnabled="{Binding FinishedLoading}"/>
+                <Label Text="{Binding VisibilityDescription}"/>
+            </StackLayout>
+            <Picker Title="Anmeldungen" ItemsSource="{Binding AnmeldungTypen}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding Anmeldung}" IsEnabled="{Binding FinishedLoading}"/>
+            <Button x:Name="createButton" Text="Speichern" Clicked="Create_Clicked" IsEnabled="{Binding FinishedLoading}"/>
+        </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</ContentPage>
